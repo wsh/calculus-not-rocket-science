@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Calculus, Not Rocket Science</title>
+
+		<meta name="description" content="An introduction to functional programming for the May Lab49 tech breakfast.">
+		<meta name="author" content="Will Hayworth">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/sky.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+					<h1>Calculus, Not Rocket Science</h1>
+					<h3>Or, What FP Can Give You in an OO World</h3>
+					<p>
+						<small><a href="http://willhayworth.com">Will Hayworth</a> / <a href="http://twitter.com/_wsh">@_wsh</a></small>
+					</p>
+					<p>
+						<small><a href="http://lab49.com">Lab49</a></small>
+					</p>
+					<p>
+						<small>May 17, 2013</small>
+					</p>
+				</section>
+
+				<section>
+					<h2>What's FP?</h2>
+				</section>
+				
+				<section>
+					<h2>What are functions?</h2>
+					<ul>
+					    <li class="fragment">Computation is function application</li>
+					    <li class="fragment">Functions are free variables with operations</li>
+					    <li class="fragment">Application (or partial application) entails resolving those variables</li>
+					</ul>
+				</section>
+				
+				<section>
+					<h2>What are objects?</h2>
+					<ul>
+					    <li class="fragment"><strong>Smalltalk</strong>: pure state (fields + messages)</li>
+					    <li class="fragment"><strong>Java/C++</strong>: state + functions</li>
+					    <li class="fragment"><strong>Ruby</strong>: kind of both?</li>
+					</ul>
+				</section>
+				
+				<section>
+					<h2>What's FP?</h2>
+				</section>
+				
+				<section>
+					<section>
+					    <h2>Is it...</h2>
+					    <ul>
+					        <li class="fragment">First-class functions?</h2>
+					        <li class="fragment">Not having side effects?</h2>
+					        <li class="fragment">(Referential transparency?)</h2>
+					    </ul>
+					</section>
+					<section>
+					    <p>
+					        <blockquote>What is a “functional language”? If it’s a language with first-class functions, <strong>then C is a functional language</strong>.  If it’s a language that disallows hidden side-effects, <strong>then Haskell isn’t a functional language.</strong></blockquote>
+					    </p>
+					    <p style="text-align: right;"><small>&mdash; our own <a href="http://northhorizon.net/2010/interview-with-kalani-thielen-trends-in-programming-languages/">Kalani Thielen</a></small></p>
+					    <p>
+					        
+					    </p>
+					</section>
+				</section>
+				
+				<section>
+			        <section>
+                        <h2>FP as a Modality</h2>
+                        <h2>not a family</h2>
+                    </section>
+                    
+                    <section>
+                        <h2>Transformations</h2>
+                        <h2>Not iterations</h2>
+                    </section>
+                    
+                    <section>
+                        <h2>Constrained state</h2>
+                        <h2>Local over global</h2>
+                    </section>
+				</section>
+				
+				<section>
+			        <section>
+                        <h2>How does this work?</h2>
+                    </section>
+                    
+                    <section>
+                    <pre><code class="ruby" data-trim>
+foo = [1,2,3,4,5]
+for i in (0...foo.size)
+    foo[i] = foo[i] * 2
+end
+
+foo
+# => [2,4,6,8,10]
+                    </code></pre>
+                    </section>
+                    
+                    <section>
+                    <pre><code class="ruby" data-trim>
+foo = [1,2,3,4,5]
+bar = []
+for element in foo
+    bar << element * 2
+end
+
+foo
+# => [1,2,3,4,5]
+
+bar
+# => [2,4,6,8,10]
+                    </code></pre>
+                    </section>
+                    
+                    <section>
+                    <pre><code class="ruby" data-trim>
+foo = [1,2,3,4,5]
+foo.map {|x| x * 2}
+# => [2,4,6,8,10]
+                    </code></pre>
+                    </section>
+				</section>
+				
+				<section>
+			        <section>
+                        <h2>Why do this?</h2>
+                    </section>
+                    
+                    <section>
+                    <pre><code class="ruby" data-trim>
+foo = [1,2,3,4,5]
+foo.map {|x| x * 2}
+                    </code></pre>
+                    </section>
+                    
+                    <section>
+                    <pre><code class="ruby" data-trim>
+foo = some_dataset
+foo.map {|x| costly_operation(x)}.reduce {|m, o| aggregation(m, o)}
+                    </code></pre>
+                    </section>
+				</section>
+
+                <section>
+                    <section>
+                        <h2>I get it but...</h2>
+                    </section>
+                    
+                    <section>
+                        <h2>We work in Java</h2>
+                    </section>   
+                    
+                    <section>
+                        <h2>Mixed bag from an FP standpoint</h2>
+                    </section> 
+                    
+                    <section>
+                        <ul>
+                            <li class="fragment">Constrained state: <strong>encapsulation</strong></li>
+                            <li class="fragment">First-class functions: <strong>anonymous inner classes</strong></li>
+                        </ul>
+                    </section>
+                    
+                    <section>
+                        <pre><code class="java" data-trim>
+element.addListener(new NotARealClosure() {
+    public void someCallback(Event e)
+    {
+        // ugh.
+    }
+});                     </code></pre>
+                    </section>
+                    
+                    <section>
+                        <blockquote cite="http://code.google.com/p/guava-libraries/wiki/FunctionalExplained">
+                        These [functional idioms] are by far the most easily (and most commonly) abused parts of Guava, and when you go to preposterous lengths to make your code "a one-liner," <strong>the Guava team weeps.</strong>
+                        </blockquote>
+                    </section>
+                </section>
+                
+                <section>
+                    <section>
+                        <h2>For all Java's flaws</h2>
+                        <h2>FP can make ours better</h2>
+                    </section>
+                </section>
+                
+                <section>
+                    <section>
+                        <h2>Exhibit A:</h2><code>Option</code>
+                    </section>
+                    
+                    <section>
+                        <h2>Functional languages</h2>
+                        <h2>love Option</h2>
+                    </section>
+                </section>
+                
+                <section>
+                    <section>
+                        <pre><code class="scala" data-trim>
+scala> val x = List((1,2)).toMap
+x: scala.collection.immutable.Map[Int,Int] = Map(1 -> 2)
+                        </code></pre>
+                        <pre class="fragment roll-in"><code class="scala" data-trim>
+scala> x.get(1)
+res2: Option[Int] = Some(2)
+                        </code></pre>
+                        <pre class="fragment roll-in"><code class="scala" data-trim>
+scala> x.get(3)
+res3: Option[Int] = None
+                        </code></pre>
+                        <pre class="fragment roll-in"><code class="scala" data-trim>
+scala> x.getOrElse(4, 5)
+res4: Option[Int] = 5
+                        </code></pre>
+                    </section>
+                </section>
+                
+                <section>
+                    <section>
+                        <h2>What does <code>null</code> mean?</h2>
+                    </section>
+                    
+                    <section>
+                        <pre><code class="java" data-trim>
+HashMap&lt;Integer, Integer&gt; someHashMap = new HashMap&lt;&gt;();
+someHashMap.put(1, 2);
+Optional&lt;Integer&gt; foo = Optional.fromNullable(someHashMap.get(1));
+Optional&lt;Integer&gt; bar = Optional.fromNullable(someHashMap.get(3));
+
+if (foo.isPresent()) foo.get(); // 2
+bar.isPresent(); // false
+bar.get(); // IllegalStateException
+bar.or(5); // 5
+                        </code></pre>
+                    </section>
+                    
+                    <section>
+                        <h3>Why is this handy?</h3>
+                        <ul>
+                            <li class="fragment">No <code>NullPointerException</code>s. Ever.
+                            <li class="fragment">You're required to handle every case.</li>
+                        </ul>
+                    </section>
+                </section>
+                
+                <section>
+                    <section>
+                        <h2>Exhibit B:</h2><code>Immutable________</code>
+                    </section>
+                    
+                    <section>
+                        <h2>Functional languages</h2>
+                        <h2>love Immutability</h2>
+                    </section>
+                </section>
+
+				<section>
+					<h1>Thanks!</h1>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
